@@ -6,25 +6,23 @@ let zeroCount = 0;
 
 for (const cmd of cmds) {
   let [dir, magnitude] = [cmd[0], Number(cmd.substring(1))];
-  let prevDial = dial;
 
   if (dir === "R") {
-    for (let i = 1; i < magnitude; i++) {
-      if ((prevDial + i) % 100 === 0) {
+    for (let mag = 1; mag <= magnitude; mag++) {
+      if ((dial + mag) % 100 === 0) {
         zeroCount++;
       }
     }
-    dial = (prevDial + magnitude) % 100;
+    dial = (dial + magnitude) % 100;
   }
   else {
-    for (let i = 1; i < magnitude; i++) {
-      if ((prevDial - i + 100) % 100 === 0) {
+    for (let mag = 1; mag <= magnitude; mag++) {
+      if ((dial - mag + 100) % 100 === 0) {
         zeroCount++;
       }
     }
-    dial = (prevDial - magnitude + 100) % 100;
+    dial = (dial - magnitude + 100) % 100;
   }
-
   if (dial === 0) {
     zeroCount++;
   }

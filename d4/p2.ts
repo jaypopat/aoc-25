@@ -6,32 +6,34 @@ let cols = grid[0]!.length;
 let removals = 0;
 
 
-function calculateCount(prune = false): number {
+function countRemovable(): number {
   let count = 0;
-  let removalCount = 0;
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      if (grid[i]![j]! === "@") {
-        let surrounding_rolls = countAdjacentRolls(i, j);
-        if (surrounding_rolls < 4) {
-          if (prune) {
-            grid[i]![j] = ".";
-            removalCount++;
-          }
-          count++;
-        }
+      if (grid[i]![j] === "@" && countAdjacentRolls(i, j) < 4) {
+        count++;
       }
     }
   }
-  removals += removalCount
   return count;
 }
 
-// initial count
-let count = calculateCount();
-while (count !== 0) {
-  calculateCount(true)
-  count = calculateCount();
+function removeAccessibleRolls(): number {
+  let removed = 0;
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      if (grid[i]![j] === "@" && countAdjacentRolls(i, j) < 4) {
+        grid[i]![j] = ".";
+        removed++;
+      }
+    }
+  }
+  return removed;
+}
+
+// we do 2 full scans - need to fix this next
+while (countRemovable() > 0) {
+  removals += removeAccessibleRolls();
 }
 
 console.log(removals);

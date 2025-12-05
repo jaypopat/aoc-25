@@ -8,7 +8,7 @@ let rows = grid.length;
 let cols = grid[0]!.length;
 
 let total_removal_ctr = 0;
-let removed_ctr;
+let removed_ctr: number;
 
 do {
 	removed_ctr = 0;
@@ -23,7 +23,6 @@ do {
 	total_removal_ctr += removed_ctr;
 } while (removed_ctr > 0);
 
-console.timeEnd("loop");
 console.log(total_removal_ctr);
 console.timeEnd("total");
 
